@@ -1,0 +1,170 @@
+{% load static %}
+ <!-- ======= Extiende de layout para la pagina about Us ======= -->
+
+
+  <!-- ======= Breadcrumbs ======= -->
+  <div class="breadcrumbs" data-aos="fade-in">
+    <div class="container">
+      <h2>Nosotros</h2>
+      <p>Codo a Codo 4.0 es un Programa de enseñanza en Programación, destinado a personas jóvenes y adultas, que cuenten con título secundario. Tiene como objetivo brindar herramientas que faciliten la inserción laboral en el sector IT, necesarias para mejorar la empleabilidad de las personas. </p>
+    </div>
+  </div><!-- End Breadcrumbs -->
+
+  <!-- ======= About Section ======= -->
+  <section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+
+      <div class="row">
+        <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
+          <img src="{% static 'assets/img/about.jpg' %}"  class="img-fluid" alt="">
+        </div>
+        <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
+          <h3>¿Qué es Codo a Codo 4.0?</h3>
+          <p class="fst-italic">
+            ¿Qué duración tiene la cursada?
+            Los cursos duran 4 meses.
+            ¿Recibo un título?
+            Se otorga una constancia de participación en el programa.
+          </p>
+          <ul>
+            <li><i class="bi bi-check-circle"></i> Año tras año el sector del software crece en tamaño y en demanda de puestos de trabajo. Desde el Gobierno de la Ciudad creemos que es una excelente oportunidad para incorporarse en el ecosistema laboral del futuro, del cual podés ser protagonista./li>
+            <li><i class="bi bi-check-circle"></i>Queremos que los/as estudiantes incorporen habilidades necesarias para mejorar sus posibilidades laborales, conseguir empleo o comenzar su propio emprendimiento, en las empresas del sector tecnológico.</li>
+            <li><i class="bi bi-check-circle"></i>Queremos que los/as estudiantes incorporen habilidades necesarias para mejorar sus posibilidades laborales, conseguir empleo o comenzar su propio emprendimiento, en las empresas del sector tecnológico.</li>
+          </ul>
+          <p>
+            Es 100% virtual. Se dan dos clases a la semana, con una duración de 1:30 h cada una, a través de una plataforma digital. Además, contarás con un aula virtual donde podrás complementar lo que aprendiste en clases con ejercitaciones y contenidos teóricos. Dentro de nuestros cursos contamos con un breve trayecto de habilidades blandas, el cual es auto asistido y debe realizarse antes de finalizar la cursada para poder egresar.
+          </p>
+
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End About Section -->
+
+  <!-- ======= Counts Section ======= -->
+  <section id="counts" class="counts section-bg">
+    <div class="container">
+
+      <div class="row counters">
+
+        <div class="col-lg-3 col-6 text-center">
+          <span data-purecounter-start="0" data-purecounter-end={{ alumnos|length }} data-purecounter-duration="1" class="purecounter"></span>
+          <p>Students</p>
+        </div>
+
+        <div class="col-lg-3 col-6 text-center">
+          <span data-purecounter-start="0" data-purecounter-end={{ categorias|length }} data-purecounter-duration="1" class="purecounter"></span>
+          <p>Categorías</p>
+        </div>
+
+        <div class="col-lg-3 col-6 text-center">
+          <span data-purecounter-start="0" data-purecounter-end={{ cursos|length }} data-purecounter-duration="1" class="purecounter"></span>
+          <p>Cursos</p>
+        </div>
+
+        <div class="col-lg-3 col-6 text-center">
+          <span data-purecounter-start="0" data-purecounter-end={{ profesores|length }} data-purecounter-duration="1" class="purecounter"></span>
+          <p>Profesores</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Counts Section -->
+
+  <!-- ======= Testimonials Section ======= -->
+  <section id="testimonials" class="testimonials">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-title">
+        <h2>Testimonios</h2>
+        <p>¿Que están diciendo de nosotros?</p>
+      </div>
+
+      <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img src="{% static 'assets/img/testimonials/testimonials-1.jpg' %}" class="testimonial-img" alt="">
+                <h3>Cintia Millao  </h3>
+                <h4>Full Stack &amp; Python</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  "Estoy muy contenta de haber participado. Esto ayuda a mucha gente como yo que quieren reconvertirse al área IT. Sumé muchos conocimientos valiosos".
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div><!-- End testimonial item -->
+
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img src="{% static 'assets/img/testimonials/testimonials-2.jpg' %}" class="testimonial-img" alt="">
+                <h3>Paula Baladen</h3>
+                <h4>Big Data</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  "Jamás imaginé que iba a ser tan completo, intenso, serio. No tengo más que palabras de agradecimiento y reconocimiento. Siento que se abre un nuevo horizonte". 
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div><!-- End testimonial item -->
+
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img src="{% static 'assets/img/testimonials/testimonials-3.jpg' %}" class="testimonial-img" alt="">
+                <h3>Cyntia Kasjan</h3>
+                <h4>Testing</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  "Comencé el curso de testing y me sorprendió favorablemente. El profesor es increíble. Con 4 meses de curso ya nos indicó que podemos agregar la experiencia a nuestro CV para la búsqueda de un empleo".
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div><!-- End testimonial item -->
+
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img src="{% static 'assets/img/testimonials/testimonials-4.jpg' %}" class="testimonial-img" alt="">
+                <h3>Juan Carlos Brandon</h3>
+                <h4>Freelancer</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div><!-- End testimonial item -->
+
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img src="{% static 'assets/img/testimonials/testimonials-5.jpg' %}" class="testimonial-img" alt="">
+                <h3>Matias Larson</h3>
+                <h4>Emprendedor</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div><!-- End testimonial item -->
+
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+    </div>
+  </section><!-- End Testimonials Section -->
+
+
+

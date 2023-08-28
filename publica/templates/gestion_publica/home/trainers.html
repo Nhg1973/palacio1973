@@ -1,0 +1,49 @@
+{% load static %}
+
+<!-- ======= Extiende de layout para la pagina Docentes ======= -->
+
+  <main id="main" data-aos="fade-in">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+      <div class="container">
+        <h2>Profes</h2>
+        <p>Se dictarán 2 clases por semana con un/a docente en línea de una duración de 90 minutos cada una.
+          Las ejercitaciones, actividades y/o consultas se desarrollarán dentro de la plataforma donde encontrarás todo lo necesario para tu formación: foros, material teórico y acompañamiento docente y pedagógico. </p>
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Trainers Section ======= -->
+    <section id="trainers" class="trainers">
+      <div class="container" data-aos="fade-up">
+        <div class="row" data-aos="zoom-in" data-aos-delay="100">
+
+          {% for profesor in profesores %}
+          <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src={{ profesor.photo.url }} class="img-fluid" alt="">
+              <h4>{{ profesor.user.first_name }} {{ profesor.user.last_name }}</h4>
+              <div class="member-content">
+               
+                  {% for curso in profesor.curso_set.all %}
+                  <h4>{{ curso.nombre }}</h4>
+                 
+                <p>
+                  {{ curso.descripcion }}
+                </p>
+                {% endfor %}
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+      </div>
+    </section><!-- End Trainers Section -->
+  </main><!-- End #main -->

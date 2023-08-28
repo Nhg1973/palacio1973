@@ -1,0 +1,16 @@
+<!-- cargar_json.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cargar JSON</title>
+</head>
+<body>
+    <h1>Cargar JSON</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="json_data">JSON Data:</label>
+        <textarea id="json_data" name="json_data" rows="10" cols="50"></textarea><br>
+        <input type="submit" value="Cargar JSON">
+    </form>
+</body>
+</html>

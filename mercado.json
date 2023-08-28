@@ -1,0 +1,20 @@
+{
+    "ESP": {
+        "Especie": "ESP",
+        "Variedad": "VAR",
+        "Procedencia": "PROC",
+        "Envase": "ENV",
+        "Kilos": "KG",
+        "Calidad": "CAL",
+        "Tama\u00f1o": "TAM",
+        "Grado": "GRADO",
+        "Mo": "MO050723",
+        "Mi": "MI050723",
+        "MAPK": "MAPK",
+        "MOPK": "<span style=\"color: green;\">MOPK</span>",
+        "MIPK": "MIPK",
+        "PrecioAdicional": "",
+        "PrecioJumbo": "<span style=\"color: red;\">3.463,33</span>",
+        "JumboDescripcion": "<span style=\"color: red;\">Espinaca Buy&eat 300 Gr </span>"
+    }
+}

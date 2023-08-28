@@ -1,0 +1,42 @@
+{% extends 'gestion_publica/home/layout.html' %}
+ 
+ <!-- ======= Extiende de layout para la pagina inicial ======= -->
+ 
+
+ 
+ {% block content %}
+
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex justify-content-center align-items-center">
+    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+      <h1>Cultiva tu propia comida y sé <br>dueño de tu sustento </h1>
+      <h2>Descubre la respuesta a la pregunta más recurrente de los adultos modernos: </h2>
+      <a href="{% url 'comidas' %}"  class="btn-get-started">¿Qué comemos hoy? </a>
+    </div>
+  </section><!-- End Hero -->
+
+  
+
+  <main id="main">
+
+  <!-- ======= Incluir about Section ======= -->
+  
+  {% include 'gestion_publica/home/about.html' %}
+
+  <!-- ======= Incluir popular Categorias Section ======= -->
+
+  {% include 'gestion_publica/home/course-details.html' %}
+
+  <!-- ======= Incluir courses Section ======= -->
+
+  {% include 'gestion_publica/home/courses.html' %}
+
+
+  <!-- ======= Incluir trainers Section ======= -->
+
+  {% include 'gestion_publica/home/trainers.html' %}
+
+  </main><!-- End #main -->
+
+  {% endblock %}

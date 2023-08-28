@@ -1,0 +1,294 @@
+{% extends 'gestion_publica/home/layout.html' %}
+{% load static %}
+ 
+<!-- ======= Extiende de layout para la pagina inicial ======= -->
+
+
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs" data-aos="fade-in">
+      <div class="container">
+        <h2>Semana del 10 al 26 de julio de 2023</h2>
+        <p>Estos son los platos que tenemos pensados para vos esta semana, todos ellos se pueden prepara con los bolsones que adquiriste. Podes modificar el bolsón y también las comidas que puedes prepara con ellos. Agrega alertas si lo desea para que te enviemos recetas, aviso listo de extras por WhatsApp o mail.  Ingresa en cada comida y conocerás los valores nutricionales, tiempos de preparación y todo lo que te interesa saber. No olvides somos lo que comemos. salud!! </p>
+      </div>
+    </div><!-- End Breadcrumbs -->
+    
+    <!-- ======= Events Section ======= -->
+    <section id="events" class="events">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">          
+          <div class="col-md-6 d-flex align-items-stretch">
+            <div class="card">
+              <div class="card-body">
+                </h5>
+                <div id="pieChart"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-stretch">
+            <div class="card">
+              
+              <div class="card-body">
+                <h5 class="card-title">Necesitas una bolsa de <a id="cajonTipo" href=""></a> para elaborar los siguientes menús para</h5>
+
+                    <div class="filter">
+                        <a class="icon" href="#" data-bs-toggle="dropdown">
+                            <span id="selected-persons">4 personas</span> <h6>(Quiero cambiar la cantidad de comensales)</h6>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <li class="dropdown-header text-start">
+                                <h6>Comensales</h6>
+                            </li>
+                            <li><a class="dropdown-item cantidad-personas" href="#" data-value="2">2 personas</a></li>
+                            <li><a class="dropdown-item cantidad-personas" href="#" data-value="4">2 adultos y 2 menores</a></li>
+                            <li><a class="dropdown-item cantidad-personas" href="#" data-value="4">2 adultos y dos adolescentes</a></li>
+                            <li><a class="dropdown-item cantidad-personas" href="#" data-value="6">6 adultos</a></li>
+                        </ul>
+                    </div>
+                      <img src="{% static 'assets/img/salud_comida.jpg' %}" alt="..." class="img-fluid fixed-height-image">
+                  </h5>
+              </div>
+            
+            </div>
+          </div>
+      
+        </div>
+   
+        <div class="row">
+          {% for receta in recetas %}
+              <div class="col-md-6 d-flex align-items-stretch">
+                  <div class="card" id="receta-{{ receta.id }}">
+                      <div class="card-img">
+                          <img src="{% if receta.imagen %}{{ receta.imagen.url }}{% else %}{% static 'assets/img/events-1.jpg' %}{% endif %}" alt="...">
+                      </div>
+                      <div class="card-body">
+                        <h5 class="card-title" id="titulo-receta-{{ receta.id }}"><a href="">{{ receta.titulo }}</a></h5>
+
+                          <p class="fst-italic text-center">{{ receta.fecha_creacion|date:"l, d F Y H:i" }}</p>
+                          <p class="card-text">{{ receta.descripcion }}</p>
+                          <div class="filter">
+                              <a class="icon" href="#" data-bs-toggle="dropdown">Quiero modificar esta comida</a>
+                              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                  <li class="dropdown-header text-start">
+                                      <h6>Otras recetas</h6>
+                                  </li>
+                                  {% for otra_receta in recetas %}
+                                      {% if otra_receta != receta %}
+                                          <li><a class="dropdown-item" href="#" data-receta-id="{{ otra_receta.id }}">{{ otra_receta.titulo }}</a></li>
+                                      {% endif %}
+                                  {% endfor %}
+                              </ul>
+                          </div>                       
+                      </div>
+                  </div>
+              </div>
+          {% endfor %}
+      </div>
+      
+      
+      
+
+      </div>
+
+      
+    </section><!-- End Events Section -->
+
+    <script>
+
+      document.addEventListener("DOMContentLoaded", function () {
+        var cantidadPersonasValue = 4; // Cantidad de comensales predeterminado
+        var recetasIds = []; // Aquí almacenaremos los IDs de las recetas renderizadas
+        const dropdownLinks = document.querySelectorAll(".dropdown-item[data-receta-id]");
+
+
+        // Ejecutar la función al cargar la página
+        ejecutarFuncion();
+
+        dropdownLinks.forEach(link => {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
+                const recetaId = link.getAttribute("data-receta-id");
+                
+                // Realiza una solicitud AJAX para obtener los detalles de la receta seleccionada
+                $.ajax({
+                    url: `/obtener_receta/${recetaId}/`,  // Cambia la URL a la ruta adecuada
+                    type: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        // Actualiza el contenido de la tarjeta de receta correspondiente
+                        const recetaCard = link.closest(".card");  // Encuentra el contenedor de la tarjeta
+                        recetaCard.querySelector(".card-title a").textContent = data.titulo;
+                        recetaCard.querySelector(".card-text").textContent = data.descripcion;
+                        recetaCard.setAttribute("id", `receta-${recetaId}`);
+                        // Actualiza otros campos si es necesario
+                        if (data.imagen_url) {
+                          const imagen = recetaCard.querySelector(".card-img img");
+                          imagen.src = data.imagen_url;
+                          imagen.alt = data.titulo;  // Cambia el atributo alt a lo que desees
+                        }else {
+                          const imagen = recetaCard.querySelector(".card-img img");
+                          imagen.src = "{% static 'assets/img/events-1.jpg' %}";
+                          imagen.alt = "default";  // Cambia el atributo alt a lo que desees
+                        }
+                        actualizarRecetasIds();
+                        enviarDatosAlServidor(recetasIds, cantidadPersonasValue);
+                    },
+                    error: function () {
+                        console.log("Error al obtener los detalles de la receta.");
+                    }
+                });
+            });
+        });
+
+        // Controlador de eventos para cambiar la cantidad de comensales
+        $(".cantidad-personas").on("click", function() {
+          cantidadPersonasValue = $(this).data("value");
+          $("#selected-persons").text(cantidadPersonasValue + " personas");
+          
+            // Llamar a la función de actualización después de cambiar la cantidad
+            actualizarRecetasIds();
+            enviarDatosAlServidor(recetasIds, cantidadPersonasValue);
+        });
+
+        // Función para actualizar la lista de recetasIds
+        function actualizarRecetasIds() {
+            recetasIds = [];
+            $(".card[id^='receta-']").each(function () {
+                var recetaId = $(this).attr("id").split("-")[1];
+                recetasIds.push(recetaId);
+            });
+        }
+
+        let pieChartInstance;
+
+        function enviarDatosAlServidor(recetasSeleccionadas, cantidadPersonasValue) {
+            $.ajax({
+                type: "POST",
+                url: "/calcular_ingredientes/",
+                data: {
+                    recetas: recetasSeleccionadas,
+                    cantidad_personas: cantidadPersonasValue,
+                },
+                success: function(data) {
+                    console.log("Respuesta del servidor:", data);
+
+                    // Si la instancia del gráfico existe, destrúyela para limpiar los datos
+                    if (pieChartInstance) {
+                        pieChartInstance.destroy();
+                    }
+
+                    const datosCombinadosFinal = data.ingredientes;
+
+                    // Obtener el valor de "cajon_tipo" del primer elemento (asumiendo que es igual en todos los elementos)
+                    const cajonTipo = datosCombinadosFinal[0].cajon_tipo;
+
+                    // Modificar el contenido en el HTML
+                    document.getElementById('cajonTipo').textContent = cajonTipo;
+
+
+                    // Ordenar los datos por cantidad ajustada de mayor a menor
+                    datosCombinadosFinal.sort((a, b) => b.cantidad_ajustada - a.cantidad_ajustada);
+
+                    // Crear una nueva instancia del gráfico con los datos actualizados
+                    const seriesData = datosCombinadosFinal.map(item => {
+                        if (item.tipo === 2) {
+                            return -item.cantidad_ajustada; // Valor negativo para tipo 2
+                        } else if (item.tipo === 3) {
+                            return item.cantidad_caja; // Mostrar cantidad_caja para tipo 3
+                        }
+                        return item.cantidad_ajustada; // Mantener valor positivo para tipo 1
+                    });
+
+                    const categories = datosCombinadosFinal.map(item => item.nombre);
+                    const colors = datosCombinadosFinal.map(item => {
+                        if (item.tipo === 1) {
+                            return '#33FF6B'; // Color verde para tipo 1
+                        } else if (item.tipo === 2) {
+                            return '#FF0000'; // Color rojo para tipo 2
+                        } else if (item.tipo === 3) {
+                            return '#3366FF'; // Color para tipo 3
+                        }
+                    });
+
+                    pieChartInstance = new ApexCharts(document.querySelector("#pieChart"), {
+                    series: [{
+                        name: 'Cantidad',
+                        data: seriesData
+                    }],
+                    xaxis: {
+                        categories: categories,
+                        labels: {
+                            show: false // Ocultar las leyendas del eje x
+                        }
+                    },
+                    yaxis: {
+                        labels: {
+                            formatter: (value) => parseInt(value) + ' Kg'
+                        }
+                    },
+                    chart: {
+                        type: 'bar',
+                        height: 500,
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            distributed: true,
+                            dataLabels: {
+                                enabled: false 
+                            }
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false // Desactivar las etiquetas de datos en las barras
+                    },
+                    legend: {
+                        show: false
+                    },
+                    colors: colors,
+                    tooltip: {
+                        y: {
+                            formatter: (value) => value + ' kg'
+                        }
+                    }
+                });
+
+                pieChartInstance.render();
+
+                },
+                error: function() {
+                    console.log("Error en la solicitud AJAX");
+                }
+            });
+        }
+
+
+
+
+
+        // Ejecutar la función al cargar la página y al hacer clic en elementos con clase ".dropdown-item[data-receta-id]"
+        function ejecutarFuncion() {
+            // Actualizar la lista de recetasIds antes de enviar al servidor
+           actualizarRecetasIds();
+           enviarDatosAlServidor(recetasIds, cantidadPersonasValue);
+        }       
+      });
+   
+   </script>
+    
+    
+    <!-- End Radial Bar Chart -->
+
+
+  </main><!-- End #main -->
+
+  {% endblock %}
+
